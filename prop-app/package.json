@@ -1,0 +1,19 @@
+{
+    "name": "test-db",
+    "version": "1.0.0",
+    "description": "json-server & fake/mock api",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "echo \"JSON-server ready running...\n\" && json-server --watch db.json",
+        "infos": "echo JSON-server ready running...\n",
+        "jsondb": "json-server --watch db.json --port 7777",
+        "open": "start  http://localhost:7777/datas/",
+        "db": "npm run infos && npm run open && npm run jsondb"
+    },
+    "author": "xgqfrms",
+    "license": "MIT",
+    "devDependencies": {
+        "json-server": "^0.12.0"
+    }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>POST</title>
+    <style>
+        .textarea {
+            min-width: 300px;
+            min-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>test</h1>
+        <hr/>
+        <button id="click_post">
+            click post
+        </button>
+        <div>
+            <h2>post result</h2>
+            <pre id="pre_post">
+                <!-- post -->
+            </pre>
+            <textarea id="textarea_post" class="textarea">
+                <!-- post -->
+            </textarea>
+        </div>
+        <button id="click_put">
+            click put
+        </button>
+        <div>
+            <h2>put result</h2>
+            <textarea id="textarea_put" class="textarea">
+                <!-- put -->
+            </textarea>
+        </div>
+    </div>
+    <script>
+        const url = `http://localhost:7777/datas`;
+        // Uncaught ReferenceError: postdata is not defined
+        // const function, not auto hoisting
+        const postdata = () => {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: "new-name",
+                    password: "xyz&123"
+                })
+            });
+            console.log(`fetch post data!`);
+        };
+        const putdata = (id = 1) => {
+            fetch(`${url}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // id: id,
+                    name: "put-new-name",
+                    password: "xyz&123"
+                })
+            });
+            console.log(`fetch put data!`);
+        };
+        const getdata = (id) => {
+            fetch(url, {
+                method: 'GET'
+            }).then(
+                (response) => response.json()
+            ).then(
+                (json) => {
+                    console.log(`fetch json`, json);
+                    let data = JSON.stringify(json);
+                    let format_data = json.map(
+                        (data) => {
+                            return (
+                                data + "<br/>"
+                            );
+                        }
+                    );
+                    // regex format
+                    // CodeMirror js lib
+                    document.querySelector(id).innerText = `loading...`;
+                    // mock async
+                    setTimeout(() => {
+                        document.querySelector(id).innerText = format_data;
+                        console.log(`fetch format_data`, format_data);
+                        document.querySelector(id).innerText = data;
+                        console.log(`fetch stringify data`, data);
+                    }, 1000);
+                    return data;
+                }
+            ).catch(
+                (err) => {
+                    console.log(`err`, err);
+                    throw new Error("Whoops, An Error occurred!");
+                }
+            );
+        };
+        const btn_post = document.querySelector("#click_post");
+        btn_post.addEventListener("click", () => {
+            postdata();
+            getdata("#textarea_post");
+            console.log(`finish post!`);
+        });
+        const btn_put = document.querySelector("#click_put");
+        btn_put.addEventListener("click", () => {
+            putdata(2);
+            getdata("#textarea_put");
+            console.log(`finish put!`);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typi-code"
+    },
+    {
+      "id": 2,
+      "title": "json server",
+      "author": "typi code"
+    }
+  ],
+  "datas": [
+    {
+      "id": 1,
+      "name": "typicode",
+      "password": "abc123"
+    },
+    {
+      "name": "put-new-name",
+      "password": "xyz&123",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "name": "gildata",
+      "password": "ufo123"
+    },
+    {
+      "name": "new-name",
+      "password": "xyz&123",
+      "id": 4
+    }
+  ]
+}
